@@ -4,3 +4,6 @@ Projects dedicated to using the STM32 Nucleo Development boards. The boards use 
 ## STM32 NUCLEO-L476RG projects
 - User button control led Blink rate
 - External buttons control blinking led
+- Array of Leds controlled by buttons
+- "1D pong" game with buttons and leds.
+
