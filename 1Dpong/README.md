@@ -4,9 +4,9 @@
 
 This project is a two-player, one-dimensional Pong game implemented in C on an STM32 Nucleo microcontroller.
 
-Instead of displaying the game on a traditional screen, the ball is represented by a row of LEDs. The ball moves from one side of the LED array to the other, and each player must press a button when the ball reaches their side.
+This is done by  ball is represented by a row of LEDs. The ball moves from one side of the LED array to the other, and each player must press a button when the ball reaches their side.
 
-The project demonstrates several embedded-system concepts, including:
+The project demonstrates the following:
 
 * GPIO input and output
 * Direct register manipulation
@@ -28,10 +28,10 @@ When the ball reaches a player's side:
 
 1. The player must press their button within the correct timing window.
 2. A successful hit sends the ball toward the other player.
-3. A missed hit awards a point to the opposing player.
+3. A missed hit awards a point to the opposing player. Pressing too early or too late is a missed hit.
 4. The first player to reach three points wins the game.
 
-After a player wins, the score LEDs flash before the game resets.
+After a player wins, the player's score LEDs flash before the game resets.
 
 ---
 
@@ -42,7 +42,7 @@ After a player wins, the score LEDs flash before the game resets.
 * Six LEDs for player scores
 * Two player push buttons
 * STM32 Nucleo user button
-* Current-limiting resistors
+* 100 ohm resistors
 * Breadboard
 * Jumper wires
 
@@ -52,11 +52,9 @@ After a player wins, the score LEDs flash before the game resets.
 
 * C
 * STM32CubeIDE
-* STM32 HAL and CMSIS register definitions
 * SysTick timer
 * Timer 2
 * GPIO registers
-* Git and GitHub
 
 ---
 
