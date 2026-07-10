@@ -458,19 +458,6 @@ Through this project, I gained experience with:
 
 ---
 
-## Possible Future Improvements
-
-* Add adjustable game-speed levels
-* Increase ball speed after successful hits
-* Add sound effects using a buzzer
-* Use external interrupts for player buttons
-* Display scores on a seven-segment display
-* Add difficulty settings
-* Create a printed circuit board for the complete game
-* Add a reaction-time measurement mode
-* Use PWM to change LED brightness
-* Add a start menu using an OLED display
-
 ---
 
 ## Project Structure
@@ -510,23 +497,8 @@ Adjust the file structure above to match the actual organization of the project.
 
 ## Demonstration
 
-Add images or videos of the completed system here.
 
-```markdown
-![STM32 1D Pong Hardware](images/stm32-pong-hardware.jpg)
-```
 
-```markdown
-[Watch the demonstration video](YOUR_VIDEO_LINK)
-```
 
 ---
 
-## Author
-
-**Humza Rana**
-
-Computer Engineering
-Kennesaw State University
-
-GitHub: [HumzaProfessional](https://github.com/HumzaProfessional)
