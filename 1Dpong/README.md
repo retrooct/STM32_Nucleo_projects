@@ -377,27 +377,53 @@ The STM32 Nucleo user button on PC13 is used to switch between modes.
 ---
 
 ## Major Challenges
-
 ### 1. Updating Multiple LEDs Efficiently
 
-Controlling each LED with separate instructions would make the code repetitive.
+Controlling each LED with separate configuration instructions would make the code repetitive. I addressed this by connecting all eight playfield LEDs to consecutive pins on GPIO Port C, from PC5 through PC12.
 
-I addressed this by representing the LED array as an eight-bit value and writing the entire pattern to GPIO Port C.
-Consquenlty, writing the code for operating the leds was more compact. It was able to be done through a single for loop, as shown in the following code:
+Because the pins were consecutive and belonged to the same GPIO port, I could configure them with a single loop:
+
 ```c
-    // --- Playfield LEDs: PC5–PC12 ---
-    for (int pin = 5; pin <= 12; pin++) {
-   GPIOC->MODER   &= ~(3UL << (pin * 2));
-   GPIOC->MODER   |=  (1UL << (pin * 2));
-   GPIOC->OTYPER  &= ~(1UL << pin);
-   GPIOC->OSPEEDR &= ~(3UL << (pin * 2));
+// Playfield LEDs: PC5-PC12
+for (int pin = 5; pin <= 12; pin++) {
+    GPIOC->MODER   &= ~(3UL << (pin * 2));
+    GPIOC->MODER   |=  (1UL << (pin * 2));
+    GPIOC->OTYPER  &= ~(1UL << pin);
+    GPIOC->OSPEEDR &= ~(3UL << (pin * 2));
     GPIOC->PUPDR   &= ~(3UL << (pin * 2));
-    }
+}
+```
+
+This loop configures each playfield pin as a general-purpose output. It also sets the pins to push-pull output mode, low-speed operation, and no pull-up or pull-down resistor.
+
+After configuration, I represented the LED array as an eight-bit value. Each bit corresponded to one LED in the playfield. The value could then be shifted and written to the output data register to move the illuminated LED across the array.
+
+Using one GPIO port made both the initialization and LED-control code more compact. It also allowed the LEDs to be treated as a single group rather than as eight unrelated outputs.
+
+This was a design choice rather than a requirement. The LEDs could have been connected to pins on several GPIO ports, but that approach would require additional code to track each port and pin individually. For example, the program could use a structure containing the port address and pin number for every LED. 
+
+##### Sample:
+```
+typedef struct {
+    GPIO_TypeDef *port;
+    uint8_t pin;
+} LedPin;
+
+static const LedPin playfield_leds[8] = {
+    {GPIOA, 1},
+    {GPIOB, 3},
+    {GPIOC, 5},
+    {GPIOA, 7},
+    {GPIOB, 8},
+    {GPIOC, 9},
+    {GPIOA, 10},
+    {GPIOB, 12}
+};
 
 ```
-However, this was a personal solution. Technically, this could also be acomplished with wiring any GPIO port pins. 
-Though, doing so would require more code to function the same way as using only one port. Such as making a struct that puts all the ports in an array.
-The flaw of my solution was that wiring was harder.
+
+The disadvantage of my approach was that the hardware wiring was less flexible. All eight LEDs had to be connected to the specific consecutive pins PC5 through PC12. This made the software simpler, but it made the physical wiring more cumbersome.
+
 
 
 ---
