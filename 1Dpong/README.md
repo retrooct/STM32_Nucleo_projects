@@ -383,6 +383,18 @@ The STM32 Nucleo user button on PC13 is used to switch between modes.
 Controlling each LED with separate instructions would make the code repetitive.
 
 I addressed this by representing the LED array as an eight-bit value and writing the entire pattern to GPIO Port C.
+Consquenlty, writing the code for operating the leds was more compact. It was able to be done through a single for loop, as shown in the following code:
+```c
+    // --- Playfield LEDs: PC5–PC12 ---
+    for (int pin = 5; pin <= 12; pin++) {
+   GPIOC->MODER   &= ~(3UL << (pin * 2));
+   GPIOC->MODER   |=  (1UL << (pin * 2));
+   GPIOC->OTYPER  &= ~(1UL << pin);
+   GPIOC->OSPEEDR &= ~(3UL << (pin * 2));
+    GPIOC->PUPDR   &= ~(3UL << (pin * 2));
+    }
+
+```
 However, this was a personal solution. Technically, this could also be acomplished with wiring any GPIO port pins. 
 Though, doing so would require more code to function the same way as using only one port. Such as making a struct that puts all the ports in an array.
 The flaw of my solution was that wiring was harder.
