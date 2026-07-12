@@ -19,3 +19,11 @@ A bare-metal retro game console built on the STM32L476 using C and ARM assembly.
 * Basic sprite and tile rendering
 * Resource management on a microcontroller
 * Finite-state-machine-based game logic
+
+
+
+
+## References
+
+* https://controllerstech.com/lvgl-on-stm32-part-1/
+* 
