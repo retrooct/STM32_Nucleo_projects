@@ -402,8 +402,8 @@ Using one GPIO port made both the initialization and LED-control code more compa
 
 This was a design choice rather than a requirement. The LEDs could have been connected to pins on several GPIO ports, but that approach would require additional code to track each port and pin individually. For example, the program could use a structure containing the port address and pin number for every LED. 
 
-##### Sample:
-```
+##### Alterative approach the struct data type:
+``` c
 typedef struct {
     GPIO_TypeDef *port;
     uint8_t pin;
