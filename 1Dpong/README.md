@@ -356,7 +356,7 @@ else
 }
 ```
 
-This gives both players an equal opportunity to begin a round.
+This gives each a player a turn to serve, which is a rule in real tennins/table tennis.
 
 ---
 
@@ -383,6 +383,10 @@ The STM32 Nucleo user button on PC13 is used to switch between modes.
 Controlling each LED with separate instructions would make the code repetitive.
 
 I addressed this by representing the LED array as an eight-bit value and writing the entire pattern to GPIO Port C.
+However, this was a personal solution. Technically, this could also be acomplished with wiring any GPIO port pins. 
+Though, doing so would require more code to function the same way as using only one port. Such as making a struct that puts all the ports in an array.
+The flaw of my solution was that wiring was harder.
+
 
 ---
 
@@ -420,7 +424,7 @@ Timer-based debouncing was used to verify that the input remained stable before 
 
 The game needed to move the ball at a predictable speed while still responding to button input.
 
-Timer interrupts and a finite-state machine allowed timing, movement, and input processing to be managed separately.
+Timer2 interrupts and a finite-state machine allowed timing, movement, and input processing to be managed separately.
 
 ---
 
